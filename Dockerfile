@@ -1,11 +1,11 @@
-FROM ubuntu:xenial-20160818
+# TODO: maybe use something like https://github.com/melo/docker-mkdocs-alpine
+FROM ubuntu:latest
 
-# RUN apk add --no-cache py2-pip && pip install mkdocs
 RUN apt update && apt install -y mkdocs
 
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
+ADD run-mkdocs.sh /usr/local/bin/run-mkdocs.sh
 
-WORKDIR /input
+WORKDIR /workspace
 
-CMD mkdocs build --clean -f mkdocs.yml -d /result
+# user has to explicitly specify run-mkdocs <sourceDir> <destinationPath>
+CMD false

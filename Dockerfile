@@ -1,9 +1,11 @@
-# TODO: maybe use something like https://github.com/melo/docker-mkdocs-alpine
-FROM ubuntu:latest
+# has material design theme, some Markdown extensions and fixes. based on Alpine.
+FROM squidfunk/mkdocs-material:5.0.0rc4
 
-RUN apt update && apt install -y mkdocs
+RUN apk add curl \
+	&& curl --fail --location -o /bin/liche https://s3.amazonaws.com/files.function61.com/infrastructure-dl/liche/liche-f57a5d1 \
+	&& chmod +x /bin/liche
 
-ADD run-mkdocs.sh /usr/local/bin/run-mkdocs.sh
+ADD bin/run-mkdocs.sh bin/docs-scan-broken-links.sh bin/preview.sh /bin/
 
 WORKDIR /workspace
 
